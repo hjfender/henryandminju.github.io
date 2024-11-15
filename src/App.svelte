@@ -1,135 +1,263 @@
 <!-- App.svelte -->
 <script>
-  import { Heart, Calendar, MapPin, Hotel, Gift } from 'lucide-svelte';
+  import { Heart, Calendar, MapPin, Gift } from 'lucide-svelte';
   let activeSection = 'home';
 
-  const sections = ['Home', 'Our Story', 'Details', 'Travel', 'Registry'];
+  const sections = ['Home', 'RSVP', 'Registry', 'Travel'];
   
   function setActiveSection(section) {
-    activeSection = section.toLowerCase().replace(' ', '-');
+    activeSection = section.toLowerCase();
   }
 </script>
 
-<div class="min-h-screen bg-gradient-to-b from-pink-50 to-white">
+<svelte:head>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Mr+De+Haviland&family=Qwitcher+Grypen:wght@400;700&display=swap" rel="stylesheet">
+</svelte:head>
+
+<div class="container">
   <!-- Navigation -->
-  <nav class="sticky top-0 bg-white/80 backdrop-blur-sm shadow-sm p-4 z-50">
-    <div class="max-w-4xl mx-auto flex justify-center space-x-6">
+  <nav>
+    <div class="nav-links">
       {#each sections as section}
-        <button
+        <a
+          href="#{section.toLowerCase()}"
           on:click={() => setActiveSection(section)}
-          class="px-4 py-2 rounded-full transition-colors {
-            activeSection === section.toLowerCase().replace(' ', '-')
-              ? 'bg-pink-100 text-pink-700'
-              : 'hover:bg-pink-50'
-          }"
+          class={activeSection === section.toLowerCase() ? 'active' : ''}
         >
           {section}
-        </button>
+        </a>
       {/each}
     </div>
   </nav>
 
   <!-- Hero Section -->
-  <section class="py-20 text-center">
-    <div class="max-w-4xl mx-auto px-4">
-      <Heart class="w-12 h-12 mx-auto mb-6 text-pink-500" />
-      <h1 class="text-5xl font-light mb-4">Henry & Minju</h1>
-      <p class="text-xl text-gray-600">Are getting married!</p>
+  <img class="header-img" src="../../public/photos/1.jpg" alt="Henry & Minju" />
+  <section class="hero" id="home">
+    <h1>Henry & Minju</h1>
+    <div class="divider"></div>
+    <p>Are getting married</p>
+  </section>
+
+  <!-- RSVP Section -->
+  <section class="rsvp" id="rsvp">
+    <h2>RSVP</h2>
+    <div class="content-box">
+      <div class="icon-container">
+        <Calendar class="icon" />
+      </div>
+      <p>
+        Please join us for our wedding celebration
+        <span>Coming soon...</span>
+      </p>
     </div>
   </section>
 
-  <!-- Our Story -->
-  <section class="py-16 bg-white" id="our-story">
-    <div class="max-w-4xl mx-auto px-4">
-      <div class="bg-white rounded-lg shadow-sm p-8">
-        <h2 class="text-3xl font-light text-center mb-8">Our Love Story</h2>
-        <div class="prose max-w-none">
-          <p class="text-gray-600 leading-relaxed">
-            Every love story is beautiful, but ours is our favorite. Through laughter, adventures, and countless 
-            shared moments, we've built a connection that grows stronger each day. Now, we're ready to begin 
-            our greatest adventure yet - marriage.
-          </p>
-        </div>
+  <!-- Registry Section -->
+  <section class="registry" id="registry">
+    <h2>Registry</h2>
+    <div class="content-box">
+      <div class="icon-container">
+        <Gift class="icon" />
       </div>
+      <p>
+        Your presence at our wedding is the greatest gift.
+        <span>Registry details coming soon.</span>
+      </p>
     </div>
   </section>
 
-  <!-- Wedding Details -->
-  <section class="py-16 bg-pink-50" id="details">
-    <div class="max-w-4xl mx-auto px-4">
-      <h2 class="text-3xl font-light text-center mb-12">Wedding Details</h2>
-      <div class="grid md:grid-cols-2 gap-8">
-        <div class="bg-white rounded-lg shadow-sm p-6">
-          <div class="flex items-center mb-4">
-            <Calendar class="w-6 h-6 text-pink-500 mr-3" />
-            <h3 class="text-xl font-medium">Date & Time</h3>
-          </div>
-          <p class="text-gray-600">
-            Please join us for our wedding celebration!
-            <br />
-            <span class="block mt-2">
-              More details coming soon...
-            </span>
-          </p>
-        </div>
-
-        <div class="bg-white rounded-lg shadow-sm p-6">
-          <div class="flex items-center mb-4">
-            <MapPin class="w-6 h-6 text-pink-500 mr-3" />
-            <h3 class="text-xl font-medium">Venue</h3>
-          </div>
-          <p class="text-gray-600">
-            Location details to be announced
-            <br />
-            <span class="block mt-2">
-              Stay tuned for updates!
-            </span>
-          </p>
-        </div>
+  <!-- Travel Section -->
+  <section class="travel" id="travel">
+    <h2>Travel</h2>
+    <div class="content-box">
+      <div class="icon-container">
+        <MapPin class="icon" />
       </div>
-    </div>
-  </section>
-
-  <!-- Travel & Accommodation -->
-  <section class="py-16 bg-white" id="travel">
-    <div class="max-w-4xl mx-auto px-4">
-      <h2 class="text-3xl font-light text-center mb-12">Travel & Accommodation</h2>
-      <div class="bg-white rounded-lg shadow-sm p-6">
-        <div class="flex items-center mb-4">
-          <Hotel class="w-6 h-6 text-pink-500 mr-3" />
-          <h3 class="text-xl font-medium">Where to Stay</h3>
-        </div>
-        <p class="text-gray-600">
-          We're working on securing room blocks at nearby hotels.
-          Check back soon for special rates and booking information.
-        </p>
-      </div>
-    </div>
-  </section>
-
-  <!-- Registry -->
-  <section class="py-16 bg-pink-50" id="registry">
-    <div class="max-w-4xl mx-auto px-4">
-      <h2 class="text-3xl font-light text-center mb-12">Registry</h2>
-      <div class="bg-white rounded-lg shadow-sm p-6">
-        <div class="flex items-center mb-4">
-          <Gift class="w-6 h-6 text-pink-500 mr-3" />
-          <h3 class="text-xl font-medium">Gift Registry</h3>
-        </div>
-        <p class="text-gray-600 text-center">
-          Your presence at our wedding is the greatest gift of all.
-          <br />
-          Registry information will be shared soon.
-        </p>
-      </div>
+      <p>
+        Accommodation and travel information
+        <span>Details coming soon.</span>
+      </p>
     </div>
   </section>
 
   <!-- Footer -->
-  <footer class="bg-white py-8 text-center text-gray-600">
-    <div class="max-w-4xl mx-auto px-4">
-      <Heart class="w-6 h-6 mx-auto mb-4 text-pink-500" />
-      <p>Henry & Minju</p>
-    </div>
+  <footer>
+    <div class="divider"></div>
+    <p>Henry & Minju</p>
   </footer>
 </div>
+
+<style>
+  :global(body) {
+    margin: 0;
+    font-family: serif;
+    background-color: #d6d2bd;
+    color: #57534e;
+  }
+
+  :global(html) {
+    scroll-behavior: smooth;
+  }
+
+  .container {
+    min-height: 100vh;
+  }
+
+  nav {
+    position: sticky;
+    top: 0;
+    background-color: rgba(250, 250, 249, 0.5);
+    backdrop-filter: blur(8px);
+    padding: 1.2rem;
+    z-index: 50;
+  }
+
+  .nav-links {
+    max-width: 48rem;
+    margin: 0 auto;
+    display: flex;
+    justify-content: center;
+    gap: 3rem;
+  }
+
+  a {
+    background: none;
+    border: none;
+    font-size: 0.875rem;
+    font-weight: 300;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: #57534e;
+    cursor: pointer;
+    transition: color 0.3s ease;
+    text-decoration: none;
+  }
+
+  a:hover {
+    color: #065f46;
+  }
+
+  a.active {
+    color: #065f46;
+  }
+
+  section {
+    padding: 6rem 1rem;
+  }
+
+  section:nth-child(even) {
+    background-color: rgb(250, 250, 249, 0.8);
+  }
+
+  .hero {
+    text-align: center;
+    padding: 8rem 1rem;
+  }
+
+  .header-img {
+    width: 100%;
+    height: 100vh;
+    object-fit: cover;
+    object-position: center;
+  }
+
+  h1 {
+    font-size: 4.25rem;
+    font-weight: 300;
+    /* letter-spacing: 0.2em; */
+    color: #064e3b;
+    margin-bottom: 1.5rem;
+  }
+
+  h2 {
+    font-size: 3rem;
+    font-weight: 300;
+    letter-spacing: 0.2em;
+    color: #064e3b;
+    text-align: center;
+    margin-bottom: 4rem;
+  }
+
+  h1, h2 {
+  font-family: 'Qwitcher Grypen', cursive;
+  /* Since it's a script font, you might want to adjust sizes */
+  font-weight: 700; /* or 400 for lighter weight */
+}
+
+
+  .divider {
+    width: 4rem;
+    height: 1px;
+    background-color: #064e3b;
+    margin: 1.5rem auto;
+  }
+
+  .content-box {
+    max-width: 42rem;
+    margin: 0 auto;
+    padding: 3rem;
+    background-color: white;
+  }
+
+  section:nth-child(even) .content-box {
+    background-color: #fafaf9;
+  }
+
+  .icon-container {
+    display: flex;
+    justify-content: center;
+    margin-bottom: 2rem;
+  }
+
+  :global(.icon) {
+    width: 1.25rem;
+    height: 1.25rem;
+    color: #064e3b;
+  }
+
+  p {
+    text-align: center;
+    letter-spacing: 0.1em;
+    line-height: 1.6;
+  }
+
+  span {
+    display: block;
+    margin-top: 1.5rem;
+  }
+
+  footer {
+    padding: 3rem 1rem;
+    text-align: center;
+  }
+
+  footer p {
+    font-size: 0.875rem;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+  }
+
+  @media (max-width: 640px) {
+    .nav-links {
+      gap: 1.5rem;
+    }
+
+    a {
+      font-size: 0.75rem;
+    }
+
+    h1 {
+      font-size: 1.875rem;
+    }
+
+    h2 {
+      font-size: 1.25rem;
+    }
+
+    .content-box {
+      padding: 2rem 1rem;
+    }
+  }
+</style>
